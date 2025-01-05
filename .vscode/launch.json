@@ -1,0 +1,66 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "B1074",
+      "request": "launch",
+      "mainClass": "B1074",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
+      "name": "B16920",
+      "request": "launch",
+      "mainClass": "B16920",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
+      "name": "B1600",
+      "request": "launch",
+      "mainClass": "B1600",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
+      "name": "B13913",
+      "request": "launch",
+      "mainClass": "B13913",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
+      "name": "B1009",
+      "request": "launch",
+      "mainClass": "B1009",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
+      "name": "B1012",
+      "request": "launch",
+      "mainClass": "B1012",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/정원빈/Desktop/text/c언어",
+      "program": "c:/Users/정원빈/Desktop/text/c언어/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
