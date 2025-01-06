@@ -24,10 +24,13 @@ public class B11729
     // 하노이탑 재귀 함수
     public static void hanoi(int n, int start, int end, int temp)
     {
-        if (n == 1) {
+        if (n == 1) 
+        {
             // 가장 작은 디스크를 목적지로 이동 (StringBuilder에 추가)
             sb.append(start).append(" ").append(end).append("\n");
-        } else {
+        } 
+        else 
+        {
             // n-1개의 디스크를 임시 막대로 이동
             hanoi(n - 1, start, temp, end);
             // 가장 큰 디스크를 목적지로 이동
