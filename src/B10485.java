@@ -36,7 +36,7 @@ public class B10485
         scanner.close();
     }
 
-    public  static class queueex
+    public static class queueex
     {
         private int[] queue;
         private int front;
