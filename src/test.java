@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class B9663 {
+public class test {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -16,8 +16,7 @@ public class B9663 {
     }
 
     // 퀸을 놓는 재귀 함수
-    public static void queen(int n, int row, boolean[] cols, boolean[] diag1, boolean[] diag2, int[] cnt) 
-    {
+    public static void queen(int n, int row, boolean[] cols, boolean[] diag1, boolean[] diag2, int[] cnt) {
         if (row == n) 
         {  // 퀸을 모두 배치한 경우
             cnt[0]++;  // 가능한 배치 하나 증가
@@ -28,7 +27,7 @@ public class B9663 {
         for (int col = 0; col < n; col++) 
         {
             // 열, 대각선에 퀸이 이미 놓여있는지 확인 (가지치기)
-            if (cols[col] || diag1[row - col + n - 1] || diag2[row + col])
+            if (cols[col] || diag1[row - col + n - 1] || diag2[row + col]) 
             {
                 continue;  // 퀸을 놓을 수 없는 위치
             }
