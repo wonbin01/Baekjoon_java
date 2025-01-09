@@ -3,13 +3,15 @@ import java.util.Scanner;
 public class B12100
 {
     public static int maxblock = 0;
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+    {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[][] initial_state = new int[n][n];
 
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < n; j++) 
+            {
                 initial_state[i][j] = sc.nextInt();
             }
         }
@@ -19,7 +21,8 @@ public class B12100
         sc.close();
     }
 
-    public static void Findmaxblock(int[][] board, int depth) {
+    public static void Findmaxblock(int[][] board, int depth) 
+    {
         if (depth == 5) 
         {
             int n=board.length;
