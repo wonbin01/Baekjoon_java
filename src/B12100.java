@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class test 
+public class B12100
 {
     public static int maxblock = 0;
     public static void main(String args[]) {
