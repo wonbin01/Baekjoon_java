@@ -1,226 +1,135 @@
 import java.util.Scanner;
 
-public class test 
-{
-    public static int maxblock = 0;
-    public static void main(String args[]) {
+public class test {
+    public static int cctv_cnt = 0; // CCTV의 개수
+    public static int minBlindSpot = Integer.MAX_VALUE; // 최소 사각지대 크기
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[][] initial_state = new int[n][n];
+        int n = sc.nextInt(); // 세로
+        int m = sc.nextInt(); // 가로
+        int[][] work_place = new int[n][m]; // 사무실
 
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                initial_state[i][j] = sc.nextInt();
+            for (int j = 0; j < m; j++) {
+                work_place[i][j] = sc.nextInt();
+                if (work_place[i][j] != 0 && work_place[i][j] != 6) {
+                    cctv_cnt++;
+                }
             }
         }
 
-        Findmaxblock(initial_state, 0);
-        System.out.println(maxblock);
+        Findmin(work_place, 0);
+        System.out.println(minBlindSpot);
+
         sc.close();
     }
 
-    public static void Findmaxblock(int[][] board, int depth) {
-        if (depth == 5) 
-        {
-            int n=board.length;
-            for(int i=0;i<n;i++)
-            {
-                for(int j=0;j<n;j++)
-                {
-                    maxblock=Math.max(maxblock,board[i][j]);
+    public static void Findmin(int[][] work_place, int cnt) {
+        int n = work_place.length;
+        int m = work_place[0].length;
+
+        if (cnt == cctv_cnt) {
+            int count = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (work_place[i][j] == 0) {
+                        count++;
+                    }
                 }
             }
+            minBlindSpot = Math.min(minBlindSpot, count);
             return;
         }
 
-        for (int i = 0; i < 4; i++) 
-        {
-            int[][] newboard = copyboard(board);
+        int[][] newboard = copyboard(work_place);
 
-            if (i == 0) 
-            {
-                up_dir(newboard);
-            } 
-            else if (i == 1) 
-            {
-                down_dir(newboard);
-            } 
-            else if (i == 2) 
-            {
-                left_dir(newboard);
-            } 
-            else if (i == 3) 
-            {
-                right_dir(newboard);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (work_place[i][j] >= 1 && work_place[i][j] <= 5) {
+                    if (work_place[i][j] == 1) {
+                        for (int k = 0; k < 4; k++) {
+                            copyArray(work_place, newboard);
+                            applyDirection(newboard, i, j, k);
+                            Findmin(newboard, cnt + 1);
+                        }
+                    } else if (work_place[i][j] == 2) {
+                        for (int k = 0; k < 2; k++) {
+                            copyArray(work_place, newboard);
+                            applyDirection(newboard, i, j, k);
+                            applyDirection(newboard, i, j, (k + 2) % 4);
+                            Findmin(newboard, cnt + 1);
+                        }
+                    } else if (work_place[i][j] == 3) {
+                        for (int k = 0; k < 4; k++) {
+                            copyArray(work_place, newboard);
+                            applyDirection(newboard, i, j, k);
+                            applyDirection(newboard, i, j, (k + 1) % 4);
+                            Findmin(newboard, cnt + 1);
+                        }
+                    } else if (work_place[i][j] == 4) {
+                        for (int k = 0; k < 4; k++) {
+                            copyArray(work_place, newboard);
+                            applyDirection(newboard, i, j, k);
+                            applyDirection(newboard, i, j, (k + 1) % 4);
+                            applyDirection(newboard, i, j, (k + 2) % 4);
+                            Findmin(newboard, cnt + 1);
+                        }
+                    } else if (work_place[i][j] == 5) {
+                        copyArray(work_place, newboard);
+                        for (int k = 0; k < 4; k++) {
+                            applyDirection(newboard, i, j, k);
+                        }
+                        Findmin(newboard, cnt + 1);
+                    }
+                    return; // 현재 CCTV 처리 후 종료
+                }
             }
-            Findmaxblock(newboard, depth + 1);
         }
     }
 
-    public static int[][] copyboard(int[][] board) 
-    {
+    public static void applyDirection(int[][] board, int row, int col, int dir) {
         int n = board.length;
-        int[][] newboard = new int[n][n];
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<n;j++)
-            {
-                newboard[i][j]=board[i][j];
+        int m = board[0].length;
+
+        if (dir == 0) { // 위쪽
+            for (int i = row - 1; i >= 0; i--) {
+                if (board[i][col] == 6) break;
+                if (board[i][col] == 0) board[i][col] = -1;
+            }
+        } else if (dir == 1) { // 아래쪽
+            for (int i = row + 1; i < n; i++) {
+                if (board[i][col] == 6) break;
+                if (board[i][col] == 0) board[i][col] = -1;
+            }
+        } else if (dir == 2) { // 왼쪽
+            for (int i = col - 1; i >= 0; i--) {
+                if (board[row][i] == 6) break;
+                if (board[row][i] == 0) board[row][i] = -1;
+            }
+        } else if (dir == 3) { // 오른쪽
+            for (int i = col + 1; i < m; i++) {
+                if (board[row][i] == 6) break;
+                if (board[row][i] == 0) board[row][i] = -1;
             }
         }
+    }
 
+    public static void copyArray(int[][] src, int[][] dest) {
+        for (int i = 0; i < src.length; i++) {
+            System.arraycopy(src[i], 0, dest[i], 0, src[0].length);
+        }
+    }
+
+    public static int[][] copyboard(int[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        int[][] newboard = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                newboard[i][j] = board[i][j];
+            }
+        }
         return newboard;
     }
-
-    public static void up_dir(int[][] initial_state) 
-    {
-        int n = initial_state.length;
-
-        for (int col = 0; col < n; col++) 
-        {
-            int[] temp = new int[n];
-            boolean[] merged = new boolean[n];
-            int index = 0;
-
-            for (int row = 0; row < n; row++) 
-            {
-                if (initial_state[row][col] != 0) 
-                {
-                    temp[index++] = initial_state[row][col];
-                }
-            }
-
-            for (int row = 0;row<n-1; row++) 
-            {
-                if (temp[row] != 0 && temp[row] == temp[row + 1] && !merged[row]) 
-                {
-                    temp[row] *= 2;
-                    merged[row] = true;
-                    temp[row + 1] = 0;
-                }
-            }
-
-            index = 0;
-            for (int row = 0; row < n; row++)
-            {
-                if (temp[row] != 0) 
-                {
-                    initial_state[index++][col] = temp[row];
-                }
-            }
-            for(int row=index;row<n;row++)
-            {
-                initial_state[row][col]=0;
-            }
-        }
-    }
-
-    public static void down_dir(int[][] initial_state) {
-        int n = initial_state.length;
-
-        for (int col = 0; col < n; col++) {
-            int[] temp = new int[n];
-            boolean[] merged = new boolean[n];
-            int index = 0;
-
-            for (int row = n - 1; row >= 0; row--) {
-                if (initial_state[row][col] != 0) {
-                    temp[index++] = initial_state[row][col];
-                }
-            }
-
-            for (int row = 0; row < n - 1; row++) {
-                if (temp[row] != 0 && temp[row] == temp[row + 1] && !merged[row]) {
-                    temp[row] *= 2;
-                    temp[row + 1] = 0;
-                    merged[row] = true;
-                }
-            }
-
-            index = n - 1;
-            for (int row = 0; row < n; row++) {
-                if (temp[row] != 0) {
-                    initial_state[index--][col] = temp[row];
-                }
-            }
-            for(int row=index;row>=0;row--)
-            {
-                initial_state[row][col]=0;
-            }
-        }
-    }
-
-    public static void left_dir(int[][] initial_state) {
-        int n = initial_state.length;
-
-        for (int row = 0; row < n; row++) {
-            int[] temp = new int[n];
-            boolean[] merged = new boolean[n];
-            int index = 0;
-
-            for (int col = 0; col < n; col++) {
-                if (initial_state[row][col] != 0) {
-                    temp[index++] = initial_state[row][col];
-                }
-            }
-
-            for (int col = 0; col < n - 1; col++) {
-                if (temp[col] != 0 && temp[col] == temp[col + 1] && !merged[col]) {
-                    temp[col] *= 2;
-                    temp[col + 1] = 0;
-                    merged[col] = true;
-                }
-            }
-
-            index = 0;
-            for (int col = 0; col < n; col++) {
-                if (temp[col] != 0) {
-                    initial_state[row][index++] = temp[col];
-                }
-            }
-            for(int col=index;col<n;col++)
-            {
-                initial_state[row][col]=0;
-            }
-        }
-    }
-    public static void right_dir(int[][] initial_state) {
-        int n = initial_state.length;
-    
-        for (int row = 0; row < n; row++) {
-            int[] temp = new int[n];
-            boolean[] merged = new boolean[n];
-            int index = n - 1; // 오른쪽부터 채움
-    
-            // 값이 0이 아닌 숫자만 temp로 이동
-            for (int col = n - 1; col >= 0; col--) {
-                if (initial_state[row][col] != 0) {
-                    temp[index--] = initial_state[row][col];
-                }
-            }
-    
-            // 병합 처리
-            for (int col = n - 1; col > 0; col--) {
-                if (temp[col] != 0 && temp[col] == temp[col - 1] && !merged[col]) {
-                    temp[col] *= 2;       // 병합
-                    temp[col - 1] = 0;    // 병합된 값 제거
-                    merged[col] = true;   // 병합 상태 저장
-                }
-            }
-    
-            // 병합 결과를 다시 오른쪽으로 채움
-            index = n - 1;
-            for (int col = n - 1; col >= 0; col--) {
-                if (temp[col] != 0) {
-                    initial_state[row][index--] = temp[col];
-                }
-            }
-            for(int col=index;col>=0;col--)
-            {
-                initial_state[row][col]=0;
-            }
-        }
-    }
-    
-    
 }
