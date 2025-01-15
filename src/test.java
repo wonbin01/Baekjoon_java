@@ -1,39 +1,42 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class test {
     public static void main(String args[]) throws IOException {
+        StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine()); // n을 입력받음
 
-        // 첫 줄 입력
-        String input = br.readLine();
-        String[] parts = input.split(" ");
-        int n = Integer.parseInt(parts[0]); // 수의 개수
-        int m = Integer.parseInt(parts[1]); // 반복하는 횟수
+        int[] min_func = new int[1000001]; // 최소 연산 횟수 저장
+        int[] route = new int[1000001];   // 경로 추적용 배열
 
-        // 숫자 배열 입력
-        int[] number = new int[n];
-        int[] prefixSum = new int[n + 1]; // 누적 합 배열
-        input = br.readLine();
-        parts = input.split(" ");
-        for (int i = 0; i < n; i++) {
-            number[i] = Integer.parseInt(parts[i]);
-            prefixSum[i + 1] = prefixSum[i] + number[i]; // 누적 합 계산
+        min_func[1] = 0; // 1은 연산 필요 없음
+        for (int i = 2; i <= n; i++) {
+            // 기본적으로 1을 뺀 경우로 초기화
+            min_func[i] = min_func[i - 1] + 1;
+            route[i] = i - 1;
+
+            // 2로 나눌 수 있는 경우
+            if (i % 2 == 0 && min_func[i] > min_func[i / 2] + 1) {
+                min_func[i] = min_func[i / 2] + 1;
+                route[i] = i / 2;
+            }
+
+            // 3으로 나눌 수 있는 경우
+            if (i % 3 == 0 && min_func[i] > min_func[i / 3] + 1) {
+                min_func[i] = min_func[i / 3] + 1;
+                route[i] = i / 3;
+            }
         }
 
-        // 구간 입력 및 결과 계산
-        StringBuilder sb = new StringBuilder(); // 결과 저장용
-        for (int i = 0; i < m; i++) {
-            input = br.readLine();
-            parts = input.split(" ");
-            int start = Integer.parseInt(parts[0]);
-            int end = Integer.parseInt(parts[1]);
-            int result = prefixSum[end] - prefixSum[start - 1]; // 구간 합 계산
-            sb.append(result).append("\n");
+        // 최소 연산 횟수 출력
+        sb.append(min_func[n]).append("\n");
+
+        // 경로 추적
+        while (n > 0) {
+            sb.append(n).append(" ");
+            n = route[n];
         }
 
-        // 결과 출력
-        System.out.print(sb.toString());
+        System.out.print(sb);
     }
 }
