@@ -1,42 +1,36 @@
 import java.io.*;
 
 public class test {
-    public static void main(String args[]) throws IOException {
-        StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine()); // n을 입력받음
-
-        int[] min_func = new int[1000001]; // 최소 연산 횟수 저장
-        int[] route = new int[1000001];   // 경로 추적용 배열
-
-        min_func[1] = 0; // 1은 연산 필요 없음
-        for (int i = 2; i <= n; i++) {
-            // 기본적으로 1을 뺀 경우로 초기화
-            min_func[i] = min_func[i - 1] + 1;
-            route[i] = i - 1;
-
-            // 2로 나눌 수 있는 경우
-            if (i % 2 == 0 && min_func[i] > min_func[i / 2] + 1) {
-                min_func[i] = min_func[i / 2] + 1;
-                route[i] = i / 2;
-            }
-
-            // 3으로 나눌 수 있는 경우
-            if (i % 3 == 0 && min_func[i] > min_func[i / 3] + 1) {
-                min_func[i] = min_func[i / 3] + 1;
-                route[i] = i / 3;
-            }
+        
+        // 계단 개수 입력
+        int n = Integer.parseInt(br.readLine());
+        int[] stair = new int[n + 1];
+        
+        // 계단 점수 입력
+        for (int i = 1; i <= n; i++) {
+            stair[i] = Integer.parseInt(br.readLine());
         }
-
-        // 최소 연산 횟수 출력
-        sb.append(min_func[n]).append("\n");
-
-        // 경로 추적
-        while (n > 0) {
-            sb.append(n).append(" ");
-            n = route[n];
+        
+        // 계단 점수 저장할 배열
+        int[] score = new int[n + 1];
+        
+        // 초기값 처리
+        score[1] = stair[1];
+        if (n >= 2) {
+            score[2] = stair[1] + stair[2];
         }
-
-        System.out.print(sb);
+        if (n >= 3) {
+            score[3] = Math.max(stair[1] + stair[3], stair[2] + stair[3]);
+        }
+        
+        // 동적 프로그래밍 계산
+        for (int i = 4; i <= n; i++) {
+            score[i] = Math.max(score[i - 2], score[i - 3] + stair[i - 1]) + stair[i];
+        }
+        
+        // 결과 출력
+        System.out.println(score[n]);
     }
 }
