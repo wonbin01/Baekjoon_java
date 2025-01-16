@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "B1463",
+      "request": "launch",
+      "mainClass": "B1463",
+      "projectName": "JAVA_1433b0d6"
+    },
+    {
+      "type": "java",
       "name": "B12852",
       "request": "launch",
       "mainClass": "B12852",
