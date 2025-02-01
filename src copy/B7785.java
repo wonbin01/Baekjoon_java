@@ -33,3 +33,12 @@ public class B7785
         System.out.print(sb);
     }
 }
+/*
+ ArrayList<String> list = new ArrayList<>();  // 동적 리스트 생성
+
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+
+        list.remove(1); // "Banana" 삭제
+ */
