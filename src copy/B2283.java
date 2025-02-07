@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 public class B2283 
 {
     public static void main(String args[]) throws IOException
@@ -18,43 +17,37 @@ public class B2283
             number[i][1]=Integer.parseInt(input[1]);
             max=Math.max(max,number[i][1]);
         }
-        int start=0; int end=0;
-        int[] find_gap=new int[max+1];
-        Arrays.fill(find_gap,Integer.MAX_VALUE);
-        while(end<max)
+        int[] find_gap=new int[max+2]; //몇개의 구간이 겹치는지 확인 가능
+        for(int i=0;i<n;i++)
         {
-            int result=0;
-            for (int i = 0; i < n; i++) 
+            find_gap[number[i][0]]++; //시작지점에서 +1
+            find_gap[number[i][1]]--; //끝지점에서 -1
+        }
+        for(int i=1;i<=max;i++)
+        {
+            find_gap[i]+=find_gap[i-1]; //몇개의 구간이 겹치는지 저장
+        }
+        int start=0; int end=0; int sum=0; boolean found=false;
+        while(end<=max)
+        {
+            if(sum<target) //target보다 작은 경우
             {
-                int temp1 = Math.max(start, number[i][0]);
-                int temp2 = Math.min(end, number[i][1]);
-
-                if (temp1 <= temp2) 
-                {
-                    result += (temp2 - temp1); //temp2가 더 큰 경우에만 더함
-                }
+                sum+=find_gap[end];
+                end++;
             }
-            int gap=end-start;
-            if(result==target) find_gap[gap]=Math.min(find_gap[gap],start); //같은 경우에는 gap차이에 맞게 저장
-
-            if(end<max) end++;
+            else if(sum>target)
+            {
+                sum-=find_gap[start];
+                start++;
+            }
             else
             {
-                start++;
-                end=start+1;
+                sb.append(start).append(" ").append(end).append("\n");
+                found=true;
+                break;
             }
         }
-        int gap=Integer.MAX_VALUE;
-        int en=0;
-        for(int i=0;i<=max;i++)
-        {
-            if(find_gap[i]!=Integer.MAX_VALUE)
-            {
-                gap=Math.min(gap,find_gap[i]);
-                en=find_gap[i]+i;
-            }
-        }
-        sb.append(gap).append(" ").append(en);
-        System.out.println(sb);
+        if(!found) System.out.println("0 0");
+        else System.out.print(sb);
     }
 }
