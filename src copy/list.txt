@@ -1,0 +1,30 @@
+List 인터페이스 -> 중복을 허용하면서 저장순서를 유지시키는 컬렉션
+(vector, ArrayList, LinkedList, stack)
+
+메서드
+void add(int index, Object element) => 지정된 위치에 객체들을 추가함
+boolean addAll(int index, Collection c)
+
+Object get(int index) => 지정된 위치에 있는 객체를 반환함
+
+int indexOf(object o) => 지정된 객체의 위치를 반환함(List의 첫 번째 요소부터 순방향으로 찾음)
+
+int lastIndexof(object o) => List의 마지막 요소부터 역방향으로 찾음
+
+Object remove(int index) => 지정된 위치에 있는 객체를 삭제하고 삭제된 객체를 반환함
+
+object set(int index, Object element) => 지정된 위치에 객체를 저장함
+
+void sort(Comparator c) => 지정된 비교자로 List를 정렬함
+
+
+ ArrayList<String> list = new ArrayList<>();  // 동적 리스트 생성
+
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+
+        list.remove(1); // "Banana" 삭제
+
+LinkedList -> c언어에서 list와 비슷한 자료구조
+LinkedList<String> list=new LinkedList<>(); //LinkedList 생성
