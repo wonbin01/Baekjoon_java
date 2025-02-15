@@ -1,67 +1,59 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.*;
 
-public class test {
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuffer sb = new StringBuffer();
-        String[] input = br.readLine().split(" ");
-        
-        int n = Integer.parseInt(input[0]); // 구간 개수
-        int target = Integer.parseInt(input[1]); // 목표 길이 합
-        int max = 0;
-        int[][] number = new int[n][2];
-
-        // 입력 받기 & 최대값 찾기
-        for (int i = 0; i < n; i++) {
-            input = br.readLine().split(" ");
-            number[i][0] = Integer.parseInt(input[0]);
-            number[i][1] = Integer.parseInt(input[1]);
-            max = Math.max(max, number[i][1]);
+public class test 
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String[] input=br.readLine().split(" ");
+        int n=Integer.parseInt(input[0]); // 보석의 총 개수
+        int k=Integer.parseInt(input[1]); // 가방의 개수(가방에는 최대 한 개의 보석만 가능)
+        int[][] information=new int[n][2]; //보석의 무게와 가격 저장
+        for(int i=0;i<n;i++)
+        {
+            input=br.readLine().split(" ");
+            information[i][0]=Integer.parseInt(input[0]); //무게
+            information[i][1]=Integer.parseInt(input[1]); //가격
         }
+        Arrays.sort(information, new infor_sort()); // 무게를 기준으로 오름차순 정렬
+        int[] bag=new int[k];
+        for(int i=0;i<k;i++)
+        {
+            bag[i]=Integer.parseInt(br.readLine());
+        }
+        Arrays.sort(bag); // 가방에 최대로 넣을 수 있는 무게 정렬
 
-        int start = 0, end = 0;
-        int[] find_gap = new int[max + 1]; 
-        Arrays.fill(find_gap, Integer.MAX_VALUE); // 배열 초기화
+        long total=0; 
+        boolean[] used = new boolean[n]; // 보석 사용 여부를 저장하는 배열
 
-        while (start < max) {
-            int result = 0;
-
-            // 현재 start~end 범위에 대해 길이 합 계산
-            for (int i = 0; i < n; i++) {
-                int temp1 = Math.max(start, number[i][0]);
-                int temp2 = Math.min(end, number[i][1]);
-
-                if (temp1 <= temp2) {
-                    result += (temp2 - temp1);
+        for(int i=0;i<k;i++)
+        {
+            int maxPrice = 0;
+            int maxIndex = -1;
+            for(int j=0; j<n; j++)
+            {
+                if(!used[j] && information[j][0] <= bag[i] && information[j][1] > maxPrice)
+                {
+                    maxPrice = information[j][1];
+                    maxIndex = j;
                 }
             }
-
-            int gap = end - start;
-
-            // 목표 길이와 일치하면 최소 start 값 갱신
-            if (result == target) {
-                find_gap[gap] = Math.min(find_gap[gap], start);
-            }
-
-            // 범위를 조정하는 로직 수정
-            if (result < target) { 
-                // 부족하면 end 증가
-                end++;
-            } else { 
-                // 길이가 target 이상이면 start 증가
-                start++;
+            if(maxIndex != -1)
+            {
+                total += maxPrice;
+                used[maxIndex] = true; // 해당 보석을 사용했음을 표시
             }
         }
+        System.out.println(total);
+    }
 
-        // 최적의 결과 찾기
-        for (int i = 0; i <= max; i++) {
-            if (find_gap[i] != Integer.MAX_VALUE) {
-                sb.append(find_gap[i]).append(" ").append(find_gap[i] + i);
-                break;
-            }
+    public static class infor_sort implements Comparator<int[]>
+    {
+        @Override
+        public int compare(int[] a, int[] b)
+        {
+            return Integer.compare(a[0], b[0]); // 무게를 기준으로 오름차순 정렬
         }
-
-        System.out.println(sb);
     }
 }
