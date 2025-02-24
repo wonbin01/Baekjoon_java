@@ -6,7 +6,6 @@ public class B1043
     {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         String[] input=br.readLine().split(" ");
-        int n=Integer.parseInt(input[0]); //사람의 수
         int m=Integer.parseInt(input[1]); //파티의 수
         input=br.readLine().split(" ");
         int fact=Integer.parseInt(input[0]); //진실을 아는 사람의 수
