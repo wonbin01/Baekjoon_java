@@ -33,272 +33,100 @@ public class B14499
         for(int i=0;i<k;i++)
         {
             control[i]=Integer.parseInt(input[i]); //명령이 순서대로 주어짐
+            if(control[i]==1)
+            {
+                move_E();
+            }
+            else if(control[i]==2)
+            {
+                move_W();
+            }
+            else if(control[i]==3)
+            {
+                move_N();
+            }
+            else if(control[i]==4)
+            {
+                move_S();
+            }
         }
-        for(int i=0;i<k;i++)
-        {
-            int simul=control[i];
-           rolling(simul);
-        }
-        System.out.println(sb);
+        System.out.print(sb);
     }
-    static void rolling(int simul)
+    static void move_E()
     {
-        if(simul==1) //동쪽으로 옮기는 경우
+        if(y<=m-2) //움직일 수 있음
         {
-            if(x<m-1) //움직일 수 있음음
-            {
-                x=x+1;
-                if(current==1 || current==2 || current==5 || current==6)
-            {
-                
-                    int floor=3;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[4]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[4]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==3) //바닥이 3
-            {             
-                    int floor=6;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[1]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[1]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==4) //바닥이 1인 경우
-            {
-                    int floor=1;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[6]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[6]).append("\n");
-                    }
-                    current=floor;
-            }
-            }
-            
-        }
-        else if(simul==2) //서쪽으로 옮기는 경우
-        {
-            if(x>0) //움직여도 됨
-            {
-                x=x-1;
-                if(current==1 || current==2 || current==5 || current==6)
-            {
-                    int floor=4;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[3]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[3]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==4)
-            {
-                    int floor=6;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[1]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[1]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==3)
-            {
-                    int floor=1;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[6]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[6]).append("\n");
-                    }
-                    current=floor;
-            }
-            }
-        }
-        else if(simul==3)
-        {
-            if(y>0)
-            {
-                y=y-1;
-                if(current==1 || current==3 || current==4)
-            {
-                    int floor=2;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[5]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[5]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==2)
-            {
-
-                    int floor=6;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[1]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[1]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==5)
-            {
-                    int floor=1;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[6]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[6]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==6)
-            {
-                    int floor=5;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[2]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[2]).append("\n");
-                    }
-                    current=floor;
-            }
-            }
-        }
-        else if(simul==4) //남쪽으로 굴림
-        {
-            if(y<n-1)
-            {
-                y=y+1;
-                if(current==1 || current==3 || current==4)
-            {
-                    int floor=5;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[2]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[2]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==2)
-            {
-                    int floor=1;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[6]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[6]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==5)
-            {
-                    int floor=6;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[1]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[1]).append("\n");
-                    }
-                    current=floor;
-            }
-            else if(current==6)
-            {
-                    int floor=2;
-                    if(map[y][x]==0)
-                    {
-                        map[y][x]=dice[floor];
-                        sb.append(dice[5]).append("\n");
-                    }
-                    else
-                    {
-                        dice[floor]=map[y][x];
-                        map[y][x]=0;
-                        sb.append(dice[5]).append("\n");
-                    }
-                    current=floor;
-            }
-            }
+            y=y+1; //이동
+            roll(1);
+            sb.append(dice[1]).append("\n");
         }
     }
+    static void move_W()
+    {
+        if(y>=1)
+        {
+            y=y-1;
+            roll(2);
+            sb.append(dice[1]).append("\n");
+        }
+    }
+    static void move_N()
+    {
+        if(x>=1)
+        {
+            x=x-1;
+            roll(3);
+            sb.append(dice[1]).append("\n");
+        }
+    }
+    static void move_S()
+    {
+        if(x<=n-2)
+        {
+            x=x+1;
+            roll(4); //주사위를 회전시킴
+            sb.append(dice[1]).append("\n");
+        }
+    }
+    static void paint()
+    {
+        if(map[x][y]==0)
+        {
+            map[x][y]=dice[6];
+        }
+        else
+        {
+            dice[6]=map[x][y];
+            map[x][y]=0;
+        }
+    }
+    static void roll(int dir) 
+    {
+        int[] temp = dice.clone(); // 기존 주사위 상태 저장
+        if (dir == 1) { // 동쪽
+            dice[1] = temp[4];
+            dice[3] = temp[1];
+            dice[4] = temp[6];
+            dice[6] = temp[3];
+        } else if (dir == 2) { // 서쪽
+            dice[1] = temp[3];
+            dice[3] = temp[6];
+            dice[4] = temp[1];
+            dice[6] = temp[4];
+        } else if (dir == 3) { // 북쪽
+            dice[1] = temp[5];
+            dice[2] = temp[1];
+            dice[5] = temp[6];
+            dice[6] = temp[2];
+        } else if (dir == 4) { // 남쪽
+            dice[1] = temp[2];
+            dice[2] = temp[6];
+            dice[5] = temp[1];
+            dice[6] = temp[5];
+        }
+        paint();
+    }
+    
 }
 
 // 이동한 칸에 쓰여있는 수가 0이면, 주사위의 바닥면에 쓰여진 값이 바닥면에 복사
