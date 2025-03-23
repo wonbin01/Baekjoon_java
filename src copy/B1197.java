@@ -11,7 +11,7 @@ public class B1197 {
         int e = Integer.parseInt(input[1]); // 간선의 개수
 
         // 그래프 초기화
-        graph = (ArrayList<Edge>[]) new ArrayList[v + 1];
+        //graph = (ArrayList<Edge>[]) new ArrayList[v + 1];
         for (int i = 1; i <= v; i++) {
             graph[i] = new ArrayList<>();
         }
