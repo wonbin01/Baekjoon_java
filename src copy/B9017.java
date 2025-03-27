@@ -2,21 +2,24 @@ import java.io.*;
 import java.util.*;
 
 public class B9017 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException 
+    {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         
         int T = Integer.parseInt(br.readLine()); // 테스트 케이스 수
 
-        while (T-- > 0) {
+        while (T-- > 0) 
+        {
             int N = Integer.parseInt(br.readLine()); // 선수 수
-            String[] input = br.readLine().split(" "); // 선수들이 속한 팀 정보
+            String[] input = br.readLine().split(" ");
 
             // 각 팀의 선수 등수를 저장할 Map
             HashMap<Integer, ArrayList<Integer>> teams = new HashMap<>();
             
             // 각 선수의 팀 정보 입력
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < N; i++) 
+            {
                 int team = Integer.parseInt(input[i]);
                 teams.putIfAbsent(team, new ArrayList<>());
                 teams.get(team).add(i + 1); // 선수의 등수는 1부터 시작하므로 i+1
