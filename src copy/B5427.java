@@ -1,11 +1,13 @@
 import java.io.*;
 import java.util.*;
 
-public class B5427 {
+public class B5427 
+{
     static int[][] direction = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException 
+    {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
 
@@ -22,15 +24,20 @@ public class B5427 {
             boolean escaped = false;
 
             // 지도 입력 받기
-            for (int height = 0; height < h; height++) {
+            for (int height = 0; height < h; height++) 
+            {
                 String line = br.readLine();
-                for (int width = 0; width < w; width++) {
+                for (int width = 0; width < w; width++) 
+                {
                     char situation = line.charAt(width);
                     map[height][width] = situation;
 
-                    if (situation == '@') { // 상근이의 시작 위치
+                    if (situation == '@') 
+                    { // 상근이의 시작 위치
                         sangeun.add(new int[]{height, width, 0}); // 상근이 위치와 시간
-                    } else if (situation == '*') { // 불의 위치
+                    } 
+                    else if (situation == '*') 
+                    { // 불의 위치
                         fire.add(new int[]{height, width});
                         fireTime[height][width] = 0;
                     }
@@ -38,13 +45,15 @@ public class B5427 {
             }
 
             // 불 확산 BFS
-            while (!fire.isEmpty()) {
+            while (!fire.isEmpty()) 
+            {
                 int[] current = fire.poll();
                 int currentRow = current[0], currentCol = current[1];
                 for (int d = 0; d < 4; d++) {
                     int nx = currentRow + direction[d][0];
                     int ny = currentCol + direction[d][1];
-                    if (nx >= 0 && nx < h && ny >= 0 && ny < w && map[nx][ny] == '.' && fireTime[nx][ny] == 0) {
+                    if (nx >= 0 && nx < h && ny >= 0 && ny < w && map[nx][ny] == '.' && fireTime[nx][ny] == 0) 
+                    {
                         fireTime[nx][ny] = fireTime[currentRow][currentCol] + 1;
                         fire.add(new int[]{nx, ny});
                     }
@@ -52,7 +61,8 @@ public class B5427 {
             }
 
             // 상근이 이동 BFS
-            while (!sangeun.isEmpty() && !escaped) {
+            while (!sangeun.isEmpty() && !escaped) 
+            {
                 int[] current = sangeun.poll();
                 int currentRow = current[0], currentCol = current[1], currentTime = current[2];
                 for (int d = 0; d < 4; d++) {
