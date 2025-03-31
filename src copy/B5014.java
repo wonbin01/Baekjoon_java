@@ -46,7 +46,7 @@ public class B5014
             cnt++;
         }
         
-        System.out.println("ues the stairs");
+        System.out.println("use the stairs");
     }
 }
 // u층 위 , d층 아래 해당하는 층이 없으면 엘리베이터는 움직이지 않음
