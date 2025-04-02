@@ -52,7 +52,7 @@ public class B6593
                     int cl=node[0]; int cx=node[1]; int cy=node[2];
                     if(building[cl][cx][cy]=='E') //출구에 도달한 경우
                     {
-                        sb.append("Escaped in ").append(cnt).append(" minute(s)\n");
+                        sb.append("Escaped in ").append(cnt).append(" minute(s).\n");
                         escape=true;
                         queue.clear(); break;
                     }
