@@ -7,7 +7,6 @@ public class B2493
     {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         int n=Integer.parseInt(br.readLine());
-        int[] top=new int[n+1]; //탑들의 번호 저장장
         int[] receive=new int[n+1];
         Stack<int[]> stack=new Stack<>();
         String[] input=br.readLine().split(" ");
