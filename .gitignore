@@ -1,7 +1,15 @@
-# Compiled class file
+# IDE & editor settings
+.idea/
+.vscode/
+*.iml
+
+# classpath
+classpath
+
+# Byte-compiled / optimized / DLL files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -10,7 +18,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -19,6 +27,18 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+# Ignore all files except for source code files
+*.java
+*.cpp
+*.h
+*.py
+*.js
+*.ts
+*.html
+*.css
+*.xml
+*.json

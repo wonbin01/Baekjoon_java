@@ -1,0 +1,27 @@
+Set 인터페이스 -> 중복을 허용하지 않고, 저장순서가 유지되지 않는 컬렉션
+(Hash, SortedSet, TreeSet)
+
+Map 인터페이스 -> 키와 값을 하나의 쌍으로 묶어서 저장하는 컬렉션
+
+메서드
+void clear() -> Map의 객체를 삭제
+
+boolean containsKey(Object key) -> 저장된 key객체와 일치하는 Map의 key객체가 있는지 확인
+
+boolean containsValue(Object value) -> 저장된 value객체와 일치하는 Map의 value객체가 있는지 확인
+
+Set entrySet() -> Map에 저장되어 있는 key-value쌍을 Map.Entry타입의 객체로 저장된 Set을 반환
+
+boolean equals(object o) -> 동일한 Map인지 확인함
+
+Object get(Object key) -> key객체에 대응하는 value객체를 찾아서 반환
+
+int hashCode() -> 해시코드를 반환
+
+Set keySet() -> Map에 저장된 모든 key 객체를 반환
+
+Object remove(Object key) -> 지정된 key객체에 해당하는 value값을 삭제함
+
+int size() -> Map에 저장된 key-value쌍을 반환
+
+
