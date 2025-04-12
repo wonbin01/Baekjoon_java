@@ -32,7 +32,6 @@ hs_err_pid*
 replay_pid*
 
 # Ignore all files except for source code files
-*.java
 *.cpp
 *.h
 *.py
