@@ -28,3 +28,5 @@ void sort(Comparator c) => 지정된 비교자로 List를 정렬함
 
 LinkedList -> c언어에서 list와 비슷한 자료구조
 LinkedList<String> list=new LinkedList<>(); //LinkedList 생성
+
+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
