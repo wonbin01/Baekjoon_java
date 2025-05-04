@@ -28,29 +28,31 @@ public class B28125 {
         {
             int cnt = 0;
             s[i] = br.readLine();
-            for(int j=0;j<s[i].length();j++)
+            for (int j = 0; j < s[i].length(); ) 
             {
-                if(s[i].charAt(j)=='\\' && s[i].charAt(j+1)=='\'') // \'일때
+                if (j + 2 < s[i].length() && s[i].charAt(j) == '\\' && s[i].charAt(j + 1) == '\\' && s[i].charAt(j + 2) == '\'') 
                 {
-                    j+=2;
                     cnt++;
-                }
-                else if(s[i].charAt(j)=='\\' && s[i].charAt(j+1)=='\\' && s[i].charAt(j)=='\'') // \\' 일떄
+                    j += 3;
+                } 
+                else if 
+                (j + 1 < s[i].length() && s[i].charAt(j) == '\\' && s[i].charAt(j + 1) == '\'') 
                 {
-                    j+=3; cnt++;
-                }
-                else
+                    cnt++;
+                    j += 2;
+                } 
+                else 
                 {
-                    String k=String.valueOf(s[i].charAt(j));
-                    if(hm.containsKey(k)) cnt++;
+                    String k = String.valueOf(s[i].charAt(j));
+                    if (hm.containsKey(k)) cnt++;
+                    j++;
                 }
             }
-            for(String k : hm.keySet())
+            s[i] = s[i].replace("\\\\\'", "w");
+            s[i] = s[i].replace("\\'", "v");
+            for (String k : hm.keySet()) 
             {
-                if(s[i].contains(k))
-                {
-                    s[i]=s[i].replace(k, hm.get(k));
-                }
+                s[i] = s[i].replace(k, hm.get(k));
             }
             int len=s[i].length();
             // 조건에 따라 결과 저장
