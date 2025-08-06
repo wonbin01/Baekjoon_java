@@ -7,55 +7,61 @@ public class B9017 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         
-        int T = Integer.parseInt(br.readLine()); // 테스트 케이스 수
+        int t = Integer.parseInt(br.readLine()); // 테스트 케이스 수
 
-        while (T-- > 0) 
+        while (t-->0) 
         {
-            int N = Integer.parseInt(br.readLine()); // 선수 수
-            String[] input = br.readLine().split(" ");
-
-            // 각 팀의 선수 등수를 저장할 Map
-            HashMap<Integer, ArrayList<Integer>> teams = new HashMap<>();
-            
-            // 각 선수의 팀 정보 입력
-            for (int i = 0; i < N; i++) 
+            int n=Integer.parseInt(br.readLine()); //선수들의 수
+            String[] input=br.readLine().split(" ");
+            int[] teamScore = new int[n];
+            int[] teamCount = new int[201];
+            for (int i = 0; i < n; i++) 
             {
-                int team = Integer.parseInt(input[i]);
-                teams.putIfAbsent(team, new ArrayList<>());
-                teams.get(team).add(i + 1); // 선수의 등수는 1부터 시작하므로 i+1
+                teamScore[i] = Integer.parseInt(input[i]);
+                teamCount[teamScore[i]]++;
             }
-
-            int minScore = Integer.MAX_VALUE;
-            int winnerTeam = 0;
-
-            // 각 팀에 대해서 점수 계산
-            for (int team : teams.keySet()) {
-                ArrayList<Integer> scores = teams.get(team);
-                
-                // 팀에 6명 이상이 있어야 점수 계산 가능
-                if (scores.size() < 6) continue;
-
-                // 상위 4명 선택을 위해 오름차순 정렬
-                Collections.sort(scores);
-
-                // 상위 4명의 점수 합산
-                int totalScore = scores.get(0) + scores.get(1) + scores.get(2) + scores.get(3);
-
-                // 우승 조건: 점수가 작거나, 동점 시 다섯 번째 점수가 더 작은 팀
-                if (totalScore < minScore) {
-                    minScore = totalScore;
-                    winnerTeam = team;
-                } else if (totalScore == minScore) {
-                    // 총합이 같을 경우 다섯 번째 선수 점수 비교
-                    if (scores.get(4) < teams.get(winnerTeam).get(4)) {
-                        winnerTeam = team;
-                    }
+            // 팀이 6명 이상인 경우에만 점수 부여
+            HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+            int rank = 0;
+            for (int i = 0; i < n; i++) 
+            {
+                int team = teamScore[i];
+                if (teamCount[team] >= 6) 
+                {
+                    hm.putIfAbsent(team, new ArrayList<>());
+                    hm.get(team).add(rank++);
                 }
             }
-
-            sb.append(winnerTeam).append("\n");
+            int winner=0; int winner_score=Integer.MAX_VALUE; int extra_point=Integer.MAX_VALUE;
+            for(int candidate : hm.keySet())
+            {
+                ArrayList<Integer> al=hm.get(candidate);
+                if(al.size()<6) continue;
+                Collections.sort(al);
+                int total_score=0;
+                for(int i=0;i<4;i++)
+                {
+                    total_score+=al.get(i);
+                }
+                if(total_score==winner_score) //4번째 선수까지 합산이 같은 경우
+                {
+                    int extra=al.get(4);
+                    if(extra<extra_point)
+                    {
+                        winner=candidate;
+                        extra_point=extra;
+                    }
+                    continue;
+                }
+                if(total_score<winner_score)
+                {
+                    winner=candidate;
+                    winner_score=total_score;
+                    extra_point=al.get(4);
+                }
+            }
+            sb.append(winner).append("\n");
         }
-
-        System.out.print(sb);
+        System.out.println(sb);
     }
 }
